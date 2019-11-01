@@ -2,110 +2,30 @@ package com.myproject.accounts.model.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
-@Entity
-@Table(name = "customers")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@SequenceGenerator(name="seq", initialValue=10000000)
+@Getter @Setter
 public class Customer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "customer_id", unique = true, nullable = false)
-    Long customerId;
 
-    @Column(name = "admin_name")
+    @Pattern(regexp= "[a-zA-Z.-/ ]{4,100}", message = "The administrator name (adminName) is not valid.")
     String adminName;
 
-    @NotNull
-    //@Pattern(regexp= "[a-zA-Z./ ]{4,60}", message = "Error message for @Pattern annotation :)")
-    @Column(name = "country")
+    @Pattern(regexp= "[a-zA-Z./ ]{4,60}", message = "The country name (country) is not valid.")
     String country;
 
-    //@Email
-    @Column(name = "email")
+    @Email (message = "The email address (email) is not valid.")
+    //@Pattern(regexp="[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}")
     String email;
 
-    @Column(name = "phone_number")
     String phoneNo;
 
-    @Column(name = "company_name")
+    @Pattern(regexp= "[a-zA-Z.-/ ]{4,60}", message = "The company name (companyName) is not valid.")
     String companyName;
-
-    @Column(name = "tc_accepted")
-    boolean isTCAccepted;
-
-    @Column (name = "activation_key")
-    String activationKey;
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public boolean isTCAccepted() {
-        return isTCAccepted;
-    }
-
-    public void setTCAccepted(boolean TCAccepted) {
-        isTCAccepted = TCAccepted;
-    }
-
-    public String getActivationKey() {
-        return activationKey;
-    }
-
-    public void setActivationKey(String activationKey) {
-        this.activationKey = activationKey;
-    }
 }
